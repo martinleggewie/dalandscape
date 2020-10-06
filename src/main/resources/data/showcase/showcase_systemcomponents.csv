@@ -1,0 +1,28 @@
+key;displayName
+-;-
+scmpUiEnrollment;Enrollment UI
+scmpUiAuthentication;Authentication UI
+scmpUiBankAccountOverview;Bank Account Overview UI
+scmpUiOpenCurrentAccount;Open Current Account UI
+scmpUiOpenSavingsAccount;Open Savings Account UI
+scmpUiSendMoney;Send Money UI
+scmpUiOpenStockDeposit;Open Stock Deposit UI
+scmpUiStockDepositOverview;Stock Deposit Overview UI
+scmpUiTradeStock;Trade Stock UI
+scmpUiSearchAvailableStocks;Search Available Stocks UI
+-;-
+scmpBeModuleEnrollmentAuthentication;Enrollment & Authentication Module
+scmpBeModuleBankAccount;Bank Account Module
+scmpDbSchemaCustomerData;Customer Data Schema
+-;-
+scmpBeModuleStockDeposit;Stock Deposit Module
+scmpDbSchemaStockDeposit;Stock Deposit Data Schema
+-;-
+scmpBeModuleCoreCurrentAccount;Current Account module
+scmpBeModuleCoreSavingsAccount;Savings Account module
+scmpBeModuleCoreStateCentralBankConnector;State Central Bank Connector
+scmpDbSchemaCoreBankAccountData;Core Bank Acount Data Schema
+-;-
+scmpBeModuleStateCentralBankApi;Bank API
+-;-
+scmpBeModuleStockExchangeApi;Stock Exchange API

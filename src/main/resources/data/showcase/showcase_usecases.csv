@@ -1,0 +1,15 @@
+key;displayName
+-;-
+ucEnrollCustomer;Enroll a customer
+ucAuthenticateCustomer;Authenticate customer
+-;-
+ucOpenCurrentAccount;Open a current account
+ucOpenSavingsAccount;Open a savings account
+ucGetListOfBankAccounts;Get list of bank accounts
+ucSendMoney;Send money to current accounts
+-;-
+ucOpenStockDeposit;Open a stock deposit
+ucGetListOfStocksInStockDeposit;Get list of stocks in stock deposit
+ucSearchForAllAvailableStocks;Search for all stocks available for trade
+ucTradeStock;Trade stock
+-;-

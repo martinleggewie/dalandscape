@@ -1,0 +1,10 @@
+key;displayName;type
+sysBackendBankDa;BankDa Backend;APPLICATION
+sysBackendBrokerDa;BrokerDa Backend;APPLICATION
+sysBackendCoreBanking;Core Banking;APPLICATION
+sysDatabaseBankDa;BankDa DB;DATABASE
+sysExternalBrokerFederation;Broker Federation;APPLICATION
+sysExternalStateCentralBank;State Central Bank;APPLICATION
+sysExternalStockExchange;Some Stock Exchange;APPLICATION
+sysFrontendWebBankDa;BankDa Web Frontend;WEBAPPLICATION
+sysFrontendWebBrokerDa;BrokerDa Web Frontend;WEBAPPLICATION

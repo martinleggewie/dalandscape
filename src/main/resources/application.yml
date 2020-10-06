@@ -1,0 +1,18 @@
+dalandscape:
+  output-path: ./target/diagrams
+  custom-setting: Huhu
+
+spring:
+  debug: true
+  h2:
+    console:
+      enabled: false
+#      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:dalandscape
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none

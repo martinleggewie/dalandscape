@@ -1,0 +1,190 @@
+
+@startuml domainmodel
+
+top to bottom direction
+'left to right direction
+
+skinparam shadowing false
+skinparam componentStyle uml2
+
+skinparam roundCorner 10
+
+skinparam classAttributeFontSize 16
+skinparam classBackgroundColor #cornsilk
+skinparam classBorderColor #black
+skinparam classBorderThickness 2
+skinparam classFontSize 20
+
+skinparam arrowColor #black
+skinparam arrowFontSize 18
+skinparam arrowThickness 2
+
+skinparam noteBackgroundColor #white
+skinparam noteBorderColor #black
+skinparam noteBorderThickness 1
+skinparam noteFontSize 16
+
+skinparam rectangleRoundCorner 20
+
+
+hide empty members
+
+title Domain model for domain architecture landscape
+
+rectangle baseClasses AS "Base classes" {
+    class Entity <<abstract>> #WhiteSmoke {
+        key: String
+        displayName: String
+    }
+    class Connection #WhiteSmoke {
+        key: String
+        type: ConnectionType
+    }
+    note left of Connection
+    "ConnectionType" can have
+    the following values:
+    - CONNECTS_TO
+    - CONTAINS
+    - DEPENDS_ON
+    - IMPLEMENTS
+    - RESPONSIBLE_FOR
+    end note
+
+    Connection "1" -UP-> "1 fromEntity" Entity
+    Connection "1" -UP-> "1 toEntity" Entity
+}
+
+rectangle mainClasses AS "Define the data of main entities" {
+    note as Note3
+    Each class is a sub
+    class of "Entity".
+
+    Each association
+    between two classes is
+    of class "Connection".
+
+    If an association end has
+    cardinality 0..*, then the
+    cardinality is not shown
+    to improve readability.
+    end note
+
+    class User {
+    }
+    class Boundary {
+    }
+    class System {
+        type: String
+    }
+    class SystemComponent {
+    }
+    class Team {
+    }
+    class TeamMember {
+        role: String
+    }
+
+    class UseCase {
+    }
+    class UseCaseGroup {
+    }
+
+
+    User --> System : uses
+
+    Boundary "1..*" --> "1..*" System : contains
+    Boundary        -->        Boundary : contains
+
+    System        -->        System : connectsTo
+    System "1..*" --> "1..*" SystemComponent : contains
+
+    Team "1" -->        System : responsibleFor
+    Team "1" -->        SystemComponent : responsibleFor
+    Team "1" --> "1..*" TeamMember : contains
+
+    UseCaseGroup --> "1..*" UseCase : contains
+
+    SystemComponent "1..*" --> "1..*" UseCase : implements
+    SystemComponent        -->        SystemComponent : dependsOn
+}
+
+rectangle storyboardClasses AS "Define the data of transitions, of how to group them,\nand how to bring them into sequences" {
+    class Storyboard {
+        key: String
+        displayName: String
+    }
+    class Scene {
+        key: String
+        displayName: String
+    }
+    class TransitionDefinition {
+        sceneKey: String
+
+        transitionType: TransitionType
+
+        fromEntityKey: String
+        fromEntityType: [entity type name]
+
+        connectionType: ConnectionType
+
+        toEntityKey: String
+        toEntityType: [entity type name]
+    }
+    note top of TransitionDefinition
+    "TransitionType" can have
+    the following values:
+    - ADD
+    - REMOVE
+    end note
+
+    Storyboard "1" --> "1..*\n{sequence}" Scene
+    Scene "0..*" --> "0..*" Connection
+    Scene "0..*" --> "1..*" Entity
+
+    TransitionDefinition ..> Scene  : uses
+    TransitionDefinition ..> Connection : uses
+    TransitionDefinition ..> Entity : uses
+}
+
+rectangle transitionClasses AS "Calculate all transition information\nout of the data defined" {
+    class TransitionBook #AliceBlue {
+    }
+    class TransitionSet #AliceBlue {
+    }
+    class Transition #AliceBlue {
+        state: TransitionState
+    }
+    note right of Transition
+    "TransitionState" can have
+    the following values:
+    - STAYS_UNCHANGED
+    - WILL_BE_ADDED
+    - WILL_BE_REMOVED
+    end note
+    class ConnectionTransition #AliceBlue {
+    }
+    class EntityTransition #AliceBlue {
+    }
+
+    TransitionBook "1..*" --> "0..*\n{sequence}" TransitionSet : creates
+    TransitionBook ....> Storyboard : uses
+    TransitionBook ....> TransitionDefinition : uses
+    TransitionSet "1..*" --> "0..*" Transition
+    Transition <|-- ConnectionTransition
+    Transition <|-- EntityTransition
+    ConnectionTransition "1" --> "1" Connection
+    EntityTransition "1" --> "1" Entity
+}
+
+package theLegend AS "Legend" {
+    class baseClass as "Base class" #WhiteSmoke
+    class definitionClass as "Definition class" #Cornsilk
+    class calculationClass as "Calculation result class" #AliceBlue
+}
+
+
+mainClasses ..> baseClasses : based on
+storyboardClasses -[hidden]-> baseClasses
+transitionClasses -[hidden]-> storyboardClasses
+
+@enduml
